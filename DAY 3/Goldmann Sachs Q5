@@ -1,0 +1,26 @@
+#Find the nth ugly number
+
+class Solution {
+public:
+    int nthUglyNumber(int n) 
+    {
+        vector<int>ans(n);
+        ans[0]=1;
+        int t=0,th=0,f=0;
+        for(int i=1;i<n;i++)
+        {
+            int m2=ans[t]*2;
+            int m3=ans[th]*3;
+            int m5=ans[f]*5;
+            ans[i]=min(m2,min(m3,m5));
+            
+            if(ans[i]==m2)
+                t++;
+            if(ans[i]==m3)
+                th++;
+            if(ans[i]==m5)
+                f++;
+        }
+        return ans[n-1];
+    }
+};
