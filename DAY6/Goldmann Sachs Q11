@@ -1,0 +1,16 @@
+#Find total number of Squares in a N*N cheesboard.
+
+class Solution {
+  public:
+    long long squaresInChessBoard(long long N) 
+    {
+        // code here
+        long long s=0;
+        while(N)
+        {
+            s+=pow(N,2);
+            N--;
+        }
+        return s;
+    }
+};
