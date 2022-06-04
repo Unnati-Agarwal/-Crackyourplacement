@@ -1,0 +1,52 @@
+#An encoded string (s) is given, the task is to decode it. The pattern in which the strings were encoded were as follows
+original string: abbbababbbababbbab 
+encoded string : 3[a3[b]1[ab]]
+
+class Solution{
+public:
+    string decodedString(string s)
+    {
+        // code here
+        stack<int>d;
+        stack<string>st;
+        string f="["+ s +"]";
+        for(int i=0;i<f.length()-1;i++)
+        {
+            if(isdigit(f[i]))
+            {
+                string di="";
+                while(isdigit(f[i]))
+                {
+                    di+=f[i];
+                    i++;
+                }
+                d.push(stoi(di));
+                i--;  
+            }
+            else if(f[i]==']')
+            {
+                int n=d.top();
+                d.pop();
+                string s1="";
+                while(st.top()!="[")
+                {
+                    s1=st.top()+s1;
+                    st.pop();
+                }
+                st.pop();
+                string str="";
+                for(int j=0;j<n;j++)
+                   str=str+s1;
+                   
+                st.push(str);   
+            } 
+            else
+                {
+                    string t="";
+                    t+=f[i];
+                    st.push(t);
+                }
+        }
+        return st.top();
+    }
+};
