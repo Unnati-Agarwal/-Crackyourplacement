@@ -1,52 +1,24 @@
-#An encoded string (s) is given, the task is to decode it. The pattern in which the strings were encoded were as follows
-original string: abbbababbbababbbab 
-encoded string : 3[a3[b]1[ab]]
-
-class Solution{
+# Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr] 
+  of which the sum is greater than or equal to target.If there is no such subarray, return 0 instead.
+  
+class Solution {
 public:
-    string decodedString(string s)
+    int minSubArrayLen(int target, vector<int>& nums) 
     {
-        // code here
-        stack<int>d;
-        stack<string>st;
-        string f="["+ s +"]";
-        for(int i=0;i<f.length()-1;i++)
+        int m=INT_MAX;
+        int start=0,sum=0;
+        for(int i=0;i<nums.size();i++)
         {
-            if(isdigit(f[i]))
+            s+=nums[i];
+            while(s>=target)
             {
-                string di="";
-                while(isdigit(f[i]))
-                {
-                    di+=f[i];
-                    i++;
-                }
-                d.push(stoi(di));
-                i--;  
+                m=min(m,(i+1-start));
+                s-=nums[start++];
             }
-            else if(f[i]==']')
-            {
-                int n=d.top();
-                d.pop();
-                string s1="";
-                while(st.top()!="[")
-                {
-                    s1=st.top()+s1;
-                    st.pop();
-                }
-                st.pop();
-                string str="";
-                for(int j=0;j<n;j++)
-                   str=str+s1;
-                   
-                st.push(str);   
-            } 
-            else
-                {
-                    string t="";
-                    t+=f[i];
-                    st.push(t);
-                }
         }
-        return st.top();
+        if(m==INT_MAX)
+            return 0;
+        
+        return m;
     }
 };
